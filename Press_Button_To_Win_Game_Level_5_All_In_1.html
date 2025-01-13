@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+    body {
+    text-align: center;
+    background-color: bisque;
+    font-size: xx-large;
+    border: 3px solid black;
+    border-radius: 10px;
+    width: auto;
+    padding: -20px;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+    gap: 50px;
+    height: 350px;
+}
+.page1, .page2, .page3, .page4, .page5, .page6 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: -30px;
+    gap: 20px;
+}
+#ButtonA, #ButtonB, #ButtonC, #ButtonD, #ButtonE, #ButtonF, #ButtonG, #ButtonH, #ButtonI, #ButtonJ, #ButtonK, #ButtonL, #ButtonM, #ButtonN, #ButtonO, #ButtonP, #ButtonQ, #ButtonR, #ButtonS, #ButtonT, #ButtonU, #ButtonV, #ButtonW, #ButtonX, #ButtonY, #ButtonZ {
+    font-size: xx-large;
+    border: solid black;
+    border-radius: 10px;
+    padding: 10px;
+}
+#dText {
+    font-size: xx-large;
+    border: solid black;
+    padding: 10px;
+    background-color: bisque;
+    border: solid black;
+    width: fit-content;
+    margin: -30px auto;
+    }
+#dText2 {
+    font-size: xx-large;
+    border: solid black;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    padding: 10px;
+    border: solid black;
+    width: fit-content;
+    margin: 10px auto;
+}
+#drButton {
+    background-color: black;
+    color: aliceblue;
+    border: solid black;
+    border-radius: 10px;
+}
+#text0 {
+    margin-top: -30px;
+    margin-bottom: 0px;
+    gap: 20px;
+}
+   </style>
+</head>
+<body>
+<br>
+<p id="text0">LEVEL 5</p>
+<br>
+<p id="dText">What has a face and two hands, but no arms or legs?</p>
+<br>
+<p id="dText2">Password</p>
+ <div class="container">
+   <div class="page1">
+     <button id="ButtonA" onclick="cycleMessage(); handleButtonPress('A');">A</button>
+     <button id="ButtonB" onclick="cycleMessage(); handleButtonPress('B');">B</button>
+     <button id="ButtonC" onclick="cycleMessage(); handleButtonPress('C');">C</button>
+     <button id="ButtonD" onclick="cycleMessage(); handleButtonPress('D');">D</button>
+     <button id="ButtonE" onclick="cycleMessage(); handleButtonPress('E');">E</button>
+ </div>
+ <div class="page2">
+     <button id="ButtonF" onclick="cycleMessage(); handleButtonPress('F');">F</button>
+     <button id="ButtonG" onclick="cycleMessage(); handleButtonPress('G');">G</button>
+     <button id="ButtonH" onclick="cycleMessage(); handleButtonPress('H');">H</button>
+     <button id="ButtonI" onclick="cycleMessage(); handleButtonPress('I');">I</button>
+     <button id="ButtonJ" onclick="cycleMessage(); handleButtonPress('J');">J</button>
+ </div>
+ <div class="page3">
+   <button id="ButtonK" onclick="cycleMessage(); handleButtonPress('K');">K</button>
+   <button id="ButtonL" onclick="cycleMessage(); handleButtonPress('L');">L</button>
+   <button id="ButtonM" onclick="cycleMessage(); handleButtonPress('M');">M</button>
+   <button id="ButtonN" onclick="cycleMessage(); handleButtonPress('N');">N</button>
+   <button id="ButtonO" onclick="cycleMessage(); handleButtonPress('O');">O</button>
+</div>
+<div class="page4">
+   <button id="ButtonP" onclick="cycleMessage(); handleButtonPress('P');">P</button>
+   <button id="ButtonQ" onclick="cycleMessage(); handleButtonPress('Q');">Q</button>
+   <button id="ButtonR" onclick="cycleMessage(); handleButtonPress('R');">R</button>
+   <button id="ButtonS" onclick="cycleMessage(); handleButtonPress('S');">S</button>
+   <button id="ButtonT" onclick="cycleMessage(); handleButtonPress('T');">T</button>
+</div>
+<div class="page5">
+ <button id="ButtonU" onclick="cycleMessage(); handleButtonPress('U');">U</button>
+ <button id="ButtonV" onclick="cycleMessage(); handleButtonPress('Y');">V</button>
+ <button id="ButtonW" onclick="cycleMessage(); handleButtonPress('W');">W</button>
+ <button id="ButtonX" onclick="cycleMessage(); handleButtonPress('X');">X</button>
+ <button id="ButtonY" onclick="cycleMessage(); handleButtonPress('Y');">Y</button>
+</div>
+<div class="page6">
+<button id="ButtonZ" onclick="cycleMessage(); handleButtonPress('Z');">Z</button>
+</div>
+</div>
+<br>
+<div><button id="drButton" onclick="resetPage()">Reset Game</button></div>
+<script>
+    const messages = [
+ "What has a face and two hands, but no arms or legs?"
+];
+
+let password = ['C', 'L', 'O', 'C', 'K'];
+let inputSequence = [];
+let currentIndex = 0;
+let stopExecution = false;
+
+function handleButtonPress(buttonCharacter) {
+    checkPassword(buttonCharacter);
+    if (!stopExecution) {
+        displayPressedButtons();
+    }
+}
+
+function checkPassword(buttonCharacter) {
+    inputSequence.push(buttonCharacter);
+
+    if (inputSequence.length === password.length) {
+        if (inputSequence.every((char, index) => char === password[index])) {
+            stopExecution = true;
+            document.getElementById('dText').textContent = "CONGRATULATIONS. YOU WON!!!";
+            document.getElementById('dText').style.backgroundColor = "cyan";
+            displayPressedButtons();
+            return;
+        } else {
+            document.getElementById('dText').innerText = 'Incorrect Password. Try again!';
+        }
+        inputSequence = [];
+        resetPressedButtons();
+    }
+}
+
+function displayPressedButtons() {
+    const pressedButtonsElement = document.getElementById('dText2');
+    pressedButtonsElement.textContent = `Password: ${inputSequence.join(' ')}`;
+}
+
+function resetPressedButtons() {
+    const pressedButtonsElement = document.getElementById('dText2');
+    pressedButtonsElement.textContent = '';
+    inputSequence = []; 
+}
+
+function cycleMessage() {
+    if (stopExecution) return;
+    const dText = document.getElementById('dText');
+    dText.innerText = messages[currentIndex];
+    currentIndex = (currentIndex + 1) % messages.length;
+    document.getElementById('dText').style.backgroundColor = "bisque";
+    document.getElementById('dText').style.color = "black";
+}
+
+function resetPage() {
+    location.reload();
+}
+
+
+</script>
+</body>
+</html>
